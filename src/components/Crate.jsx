@@ -21,6 +21,7 @@ const Crate = ({ crate, onRemove, onProceed }) => {
                 {song.title} — {song.artist}
               </span>
             </div>
+
             <button
               onClick={() => onRemove(song.id)}
               className="text-red-400 hover:text-red-200"
