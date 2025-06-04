@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ThreeDRecord from './ThreeDRecord.jsx';
 
+
 const VinylPlayer = ({ song, onGenreSelect, onAddToCrate }) => {
   const [playing, setPlaying] = useState(false);
   const [flipped, setFlipped] = useState(false);
@@ -28,6 +29,7 @@ const VinylPlayer = ({ song, onGenreSelect, onAddToCrate }) => {
             >
               <ThreeDRecord playing={playing} />
             </div>
+
             <button
               onClick={togglePlay}
               className="bg-blue-600 text-white px-4 py-1 rounded"
