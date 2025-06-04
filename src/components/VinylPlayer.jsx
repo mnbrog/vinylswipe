@@ -4,8 +4,8 @@ import FlippableAlbum from './FlippableAlbum.jsx';
 
 export default function VinylPlayer({ song, onGenreSelect, onAddToCrate }) {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center gap-6 p-4 h-screen">
-      <div className="w-full md:w-2/3 h-full">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-6 p-4 h-screen w-full">
+      <div className="w-full h-full">
         <ThreeDRecordPlayer
           className="w-full h-full"
           album={{
