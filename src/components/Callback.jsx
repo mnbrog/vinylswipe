@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext.jsx';
 
 const Callback = () => {
   const { saveAuth } = useContext(AuthContext);
@@ -15,8 +15,8 @@ const Callback = () => {
       method: 'POST',
       body: JSON.stringify({ code }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         saveAuth(data);
         navigate('/swipe');
       });
