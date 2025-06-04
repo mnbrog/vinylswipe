@@ -20,7 +20,9 @@ npm install
 npm run dev
 ```
 
-If you encounter an error about a missing optional Rollup module when building, delete `node_modules` and `package-lock.json` and reinstall:
+If `npm run build` fails with a message like `Cannot find module @rollup/rollup-linux-x64-gnu`,
+remove `node_modules` and `package-lock.json` then reinstall to ensure the correct
+Rollup binary is downloaded for your platform:
 
 ```bash
 rm -rf node_modules package-lock.json
