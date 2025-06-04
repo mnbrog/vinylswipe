@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import ThreeDRecord from './ThreeDRecord.jsx';
+
 
 const VinylPlayer = ({ song, onGenreSelect, onAddToCrate }) => {
   const [playing, setPlaying] = useState(false);
@@ -21,15 +23,13 @@ const VinylPlayer = ({ song, onGenreSelect, onAddToCrate }) => {
           }`}
         >
           <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center gap-2">
-            <img
-              src={song.image}
-              alt={song.title}
-              className={`rounded-full w-48 h-48 object-cover ${
-                playing ? 'animate-spin-slow' : ''
-              }`}
+            <div
+              className="w-48 h-48"
+              onPointerDown={(e) => e.stopPropagation()}
+            >
+              <ThreeDRecord playing={playing} />
+            </div>
 
-              onClick={togglePlay}
-            />
             <button
               onClick={togglePlay}
               className="bg-blue-600 text-white px-4 py-1 rounded"
