@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 
-export default function FlippableAlbum({ song, onAddToCrate = () => {}, onGenreClick = () => {} }) {
-  const [flipped, setFlipped] = useState(false);
+export default function FlippableAlbum({
+  song,
+  flipped: flippedProp,
+  onToggle,
+  onAddToCrate = () => {},
+  onGenreClick = () => {},
+}) {
+  const [internalFlipped, setInternalFlipped] = useState(false);
+  const controlled = flippedProp !== undefined;
+  const flipped = controlled ? flippedProp : internalFlipped;
 
   const handleGenreClick = (g, e) => {
     e.stopPropagation();
@@ -13,8 +21,20 @@ export default function FlippableAlbum({ song, onAddToCrate = () => {}, onGenreC
     onAddToCrate(song);
   };
 
+  const handleToggle = () => {
+    if (controlled) {
+      onToggle && onToggle();
+    } else {
+      setInternalFlipped((f) => !f);
+    }
+  };
+
   return (
-    <div className="w-full aspect-square cursor-pointer" style={{ perspective: '1000px' }} onClick={() => setFlipped(!flipped)}>
+    <div
+      className="w-full aspect-square cursor-pointer"
+      style={{ perspective: '1000px' }}
+      onClick={handleToggle}
+    >
       <div
         className={`relative w-full h-full transition-transform duration-500 ${flipped ? 'rotate-y-180' : ''}`}
         style={{ transformStyle: 'preserve-3d' }}

@@ -8,6 +8,7 @@ export default function ThreeDRecordPlayer({
   album,
   onAddToCrate = () => {},
   onGenreSelect = () => {},
+  onInfoToggle = () => {},
   className = '',
 }) {
   const [playing, setPlaying] = useState(false);
@@ -35,6 +36,7 @@ export default function ThreeDRecordPlayer({
           playing={playing}
           onPlayPause={togglePlay}
           onView={handleView}
+          onInfo={onInfoToggle}
           onAdd={() => onAddToCrate(album)}
         />
         <OrbitControls enablePan={false} />
