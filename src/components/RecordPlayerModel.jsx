@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useTexture, Html } from '@react-three/drei';
+import { useTexture } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 
-function Vinyl({ album, playing, lifted, showBack, onFlip, onGenreSelect }) {
+function Vinyl({ album, playing, lifted, onGenreSelect }) {
   const group = useRef();
   const labelTexture = useTexture(album.coverUrl);
 
@@ -21,7 +21,8 @@ function Vinyl({ album, playing, lifted, showBack, onFlip, onGenreSelect }) {
   });
 
   return (
-    <animated.group ref={group} position={position} rotation={rotation} onClick={onFlip} castShadow>
+    <animated.group ref={group} position={position} rotation={rotation} castShadow>
+
       <mesh>
         <planeGeometry args={[2, 2]} />
         <meshBasicMaterial map={labelTexture} side={THREE.DoubleSide} />
@@ -37,6 +38,7 @@ function Vinyl({ album, playing, lifted, showBack, onFlip, onGenreSelect }) {
             <meshBasicMaterial map={labelTexture} />
           </mesh>
         </group>
+
       )}
       {showBack && (
         <Html rotation={[Math.PI / 2, 0, 0]} position={[0, 0.1, 0]} transform>
@@ -61,7 +63,7 @@ function Vinyl({ album, playing, lifted, showBack, onFlip, onGenreSelect }) {
   );
 }
 
-export default function RecordPlayerModel({ album, playing, lifted, showBack, onFlip, onGenreSelect }) {
+export default function RecordPlayerModel({ album, playing, lifted, onGenreSelect }) {
   const knobRef = useRef();
   const [knob, setKnob] = useState(0);
   const woodTexture = useTexture('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1024&q=80');
@@ -119,8 +121,6 @@ export default function RecordPlayerModel({ album, playing, lifted, showBack, on
         album={album}
         playing={playing}
         lifted={lifted}
-        showBack={showBack}
-        onFlip={onFlip}
         onGenreSelect={onGenreSelect}
       />
     </group>

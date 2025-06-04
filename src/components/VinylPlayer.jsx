@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ThreeDRecordPlayer from './ThreeDRecordPlayer.jsx';
-import FlippableAlbum from './FlippableAlbum.jsx';
 import AlbumInfoPopup from './AlbumInfoPopup.jsx';
 
 export default function VinylPlayer({ song, onGenreSelect, onAddToCrate }) {
@@ -22,6 +21,7 @@ export default function VinylPlayer({ song, onGenreSelect, onAddToCrate }) {
           onAddToCrate={() => onAddToCrate(song)}
         />
       </div>
+
       <div className="w-full md:w-1/3 max-w-sm">
         <FlippableAlbum
           song={song}
