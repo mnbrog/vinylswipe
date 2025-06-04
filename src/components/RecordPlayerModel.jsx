@@ -82,7 +82,6 @@ export default function RecordPlayerModel({ album, playing, lifted, showBack, on
         <boxGeometry args={[4, 0.3, 4]} />
         <meshStandardMaterial color="#8B5E3C" />
       </mesh>
-
       <mesh receiveShadow castShadow>
         <boxGeometry args={[3, 0.3, 2]} />
         <meshStandardMaterial color="#555" metalness={0.5} roughness={0.6} />

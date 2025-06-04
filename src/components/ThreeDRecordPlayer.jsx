@@ -11,6 +11,7 @@ export default function ThreeDRecordPlayer({
   className = '',
 }) {
 
+
   const [playing, setPlaying] = useState(false);
   const [lifted, setLifted] = useState(false);
   const [flipped, setFlipped] = useState(false);
@@ -21,6 +22,7 @@ export default function ThreeDRecordPlayer({
 
   return (
     <div className={className}>
+
 
       <Canvas shadows camera={{ position: [0, 5, 8], fov: 50 }}>
         <ambientLight intensity={0.4} />
