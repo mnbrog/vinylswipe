@@ -3,6 +3,7 @@ import { CrateContext } from '../contexts/CrateContext.jsx';
 import { AuthContext } from '../contexts/AuthContext.jsx';
 import { addTracksToPlaylist, getUserPlaylists } from '../SpotifyService.js';
 
+
 const Crate = () => {
   const { crate, clearCrate } = useContext(CrateContext);
   const { token } = useContext(AuthContext);
@@ -19,6 +20,12 @@ const Crate = () => {
     if (!selected) return;
     const uris = crate.map((track) => track.uri);
     await addTracksToPlaylist(token, selected, uris);
+=======
+
+  const handleSend = async () => {
+    const playlistId = prompt('Enter Spotify playlist ID:');
+    const uris = crate.map(track => track.uri);
+    await addTracksToPlaylist(token, playlistId, uris);
     clearCrate();
     alert('Tracks added!');
   };
@@ -49,6 +56,7 @@ const Crate = () => {
             Send to Playlist
           </button>
         </div>
+
       )}
     </div>
   );
