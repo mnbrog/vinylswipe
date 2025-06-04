@@ -1,34 +1,43 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useTexture, Html } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
+import * as THREE from 'three';
 
 function Vinyl({ album, playing, lifted, showBack, onFlip, onGenreSelect }) {
   const group = useRef();
   const labelTexture = useTexture(album.coverUrl);
 
   const { position, rotation } = useSpring({
-    position: lifted ? [0, 2, 0] : [0, 0, 0],
-    rotation: [0, showBack ? Math.PI : 0, 0],
+    position: lifted ? [0, 0, 0] : [0, 1.5, -1],
+    rotation: lifted ? [-Math.PI / 2, 0, 0] : [0, 0, 0],
     config: { mass: 1, tension: 170, friction: 26 },
   });
 
   useFrame(() => {
-    if (playing && group.current && !lifted) {
+    if (playing && group.current && lifted) {
       group.current.rotation.y += 0.02;
     }
   });
 
   return (
     <animated.group ref={group} position={position} rotation={rotation} onClick={onFlip} castShadow>
-      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[1.5, 1.5, 0.05, 64]} />
-        <meshStandardMaterial color="black" />
+      <mesh>
+        <planeGeometry args={[2, 2]} />
+        <meshBasicMaterial map={labelTexture} side={THREE.DoubleSide} />
       </mesh>
-      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}>
-        <cylinderGeometry args={[0.4, 0.4, 0.02, 32]} />
-        <meshBasicMaterial map={labelTexture} />
-      </mesh>
+      {lifted && (
+        <group>
+          <mesh rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
+            <cylinderGeometry args={[1.5, 1.5, 0.05, 64]} />
+            <meshStandardMaterial color="black" />
+          </mesh>
+          <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}>
+            <cylinderGeometry args={[0.4, 0.4, 0.02, 32]} />
+            <meshBasicMaterial map={labelTexture} />
+          </mesh>
+        </group>
+      )}
       {showBack && (
         <Html rotation={[Math.PI / 2, 0, 0]} position={[0, 0.1, 0]} transform>
           <div className="bg-black bg-opacity-80 text-white p-2 rounded w-40 text-xs text-center">
@@ -55,6 +64,7 @@ function Vinyl({ album, playing, lifted, showBack, onFlip, onGenreSelect }) {
 export default function RecordPlayerModel({ album, playing, lifted, showBack, onFlip, onGenreSelect }) {
   const knobRef = useRef();
   const [knob, setKnob] = useState(0);
+  const woodTexture = useTexture('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1024&q=80');
   const dragging = useRef(false);
 
   useFrame(() => {
@@ -80,7 +90,7 @@ export default function RecordPlayerModel({ album, playing, lifted, showBack, on
     <group>
       <mesh position={[0, -1.5, 0]} receiveShadow>
         <boxGeometry args={[4, 0.3, 4]} />
-        <meshStandardMaterial color="#8B5E3C" />
+        <meshStandardMaterial map={woodTexture} />
       </mesh>
       <mesh receiveShadow castShadow>
         <boxGeometry args={[3, 0.3, 2]} />
