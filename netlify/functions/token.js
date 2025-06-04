@@ -3,12 +3,15 @@ const axios = require("axios");
 exports.handler = async function(event) {
   const { code } = JSON.parse(event.body);
 
+  const redirectUri =
+    process.env.VITE_REDIRECT_URI || process.env.REACT_APP_REDIRECT_URI;
+
   const response = await axios.post(
     "https://accounts.spotify.com/api/token",
     new URLSearchParams({
       grant_type: "authorization_code",
       code,
-      redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+      redirect_uri: redirectUri,
     }),
     {
       headers: {
