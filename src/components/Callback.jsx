@@ -12,7 +12,9 @@ const Callback = () => {
     const code = new URLSearchParams(search).get('code');
     if (!code) return;
 
-    fetch('/.netlify/functions/token', {
+    const base = import.meta.env.VITE_FUNCTIONS_BASE || '';
+
+    fetch(`${base}/.netlify/functions/token`, {
       method: 'POST',
       body: JSON.stringify({ code }),
     })
