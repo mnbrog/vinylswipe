@@ -29,7 +29,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-black text-white flex flex-col items-center gap-8">
+    <div className="min-h-screen w-screen p-6 bg-black text-white flex flex-col items-center gap-8">
       <h1 className="text-2xl font-bold">Vinyl Player</h1>
 
       {!selectedGenre && (
