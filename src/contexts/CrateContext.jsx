@@ -23,3 +23,4 @@ export const CrateProvider = ({ children }) => {
     </CrateContext.Provider>
   );
 };
+
