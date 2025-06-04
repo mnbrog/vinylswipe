@@ -1,10 +1,12 @@
 import React from 'react';
 
-// Vite exposes environment variables via `import.meta.env`.
-// Fall back to the old REACT_APP_ names for compatibility with
-// existing `.env` files used by the Netlify functions.
-const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID || import.meta.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const redirectUri = import.meta.env.VITE_REDIRECT_URI || import.meta.env.REACT_APP_REDIRECT_URI;
+// Auto-detect environment and use appropriate redirect URI
+const isLocalhost = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+
+const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+const redirectUri = isLocalhost
+  ? 'http://127.0.0.1:5173/callback'
+  : 'https://vinylswipe.netlify.app/callback'; // or your custom domain
 
 const scope = 'playlist-modify-public playlist-modify-private';
 
