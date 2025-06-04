@@ -11,9 +11,16 @@ const Crate = ({ crate, onRemove, onProceed }) => {
             key={song.id}
             className="flex justify-between items-center mb-1"
           >
-            <span>
-              {song.title} — {song.artist}
-            </span>
+            <div className="flex items-center">
+              <img
+                src={song.image}
+                alt={song.title}
+                className="w-8 h-8 rounded object-cover mr-2"
+              />
+              <span>
+                {song.title} — {song.artist}
+              </span>
+            </div>
             <button
               onClick={() => onRemove(song.id)}
               className="text-red-400 hover:text-red-200"

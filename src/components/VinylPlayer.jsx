@@ -27,7 +27,6 @@ const VinylPlayer = ({ song, onGenreSelect, onAddToCrate }) => {
               className={`rounded-full w-48 h-48 object-cover ${
                 playing ? 'animate-spin-slow' : ''
               }`}
-              onClick={togglePlay}
             />
             <button
               onClick={togglePlay}
