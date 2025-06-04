@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ThreeDRecord from './ThreeDRecord.jsx';
-
 const VinylPlayer = ({ song, onGenreSelect, onAddToCrate }) => {
   const [playing, setPlaying] = useState(false);
   const [flipped, setFlipped] = useState(false);
