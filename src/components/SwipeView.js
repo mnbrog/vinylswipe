@@ -1,28 +1,25 @@
-import React, { useEffect, useContext } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useContext, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import { getRecommendations } from '../SpotifyService';
+import VinylCard from './VinylCard';
 
-const Callback = () => {
-  const { saveAuth } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const { search } = useLocation();
+const SwipeView = () => {
+  const { token } = useContext(AuthContext);
+  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
-    const code = new URLSearchParams(search).get('code');
-    if (!code) return;
+    if (!token) return;
+    const seed = '4uLU6hMCjMI75M1A2tKUQC';
+    getRecommendations(token, seed).then((data) => setTracks(data.tracks));
+  }, [token]);
 
-    fetch('/.netlify/functions/token', {
-      method: 'POST',
-      body: JSON.stringify({ code }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        saveAuth(data);
-        navigate('/swipe');
-      });
-  }, [search, navigate, saveAuth]);
-
-  return <div className="text-white p-10">Authorizing...</div>;
+  return (
+    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {tracks.map((track) => (
+        <VinylCard key={track.id} track={track} />
+      ))}
+    </div>
+  );
 };
 
-export default Callback;
+export default SwipeView;

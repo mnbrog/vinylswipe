@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
-const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const redirectUri = process.env.REACT_APP_REDIRECT_URI;
-const scope = 'playlist-modify-public playlist-modify-private';
+const Callback = () => {
+  const { saveAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { search } = useLocation();
 
-const Login = () => {
-  const handleLogin = () => {
-    const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${encodeURIComponent(scope)}`;
-    window.location.href = authUrl;
-  };
+  useEffect(() => {
+    const code = new URLSearchParams(search).get('code');
+    if (!code) return;
 
-  return (
-    <div className="flex items-center justify-center h-screen bg-black text-white">
-      <button onClick={handleLogin} className="bg-green-500 px-6 py-3 rounded-xl text-xl font-bold">
-        Login with Spotify
-      </button>
-    </div>
-  );
+    fetch('/.netlify/functions/token', {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        saveAuth(data);
+        navigate('/swipe');
+      });
+  }, [search, navigate, saveAuth]);
+
+  return <div className="text-white p-10">Authorizing...</div>;
 };
 
-export default Login;
+export default Callback;
