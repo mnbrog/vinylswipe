@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { CrateContext } from '../contexts/CrateContext';
-import { ShelfContext } from '../contexts/ShelfContext';
+import { CrateContext } from '../contexts/CrateContext.jsx';
+import { ShelfContext } from '../contexts/ShelfContext.jsx';
 import beep from '../assets/beep.mp3';
 
 const VinylCard = ({ track }) => {

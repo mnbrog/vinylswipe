@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext.jsx';
 import { getRecommendations } from '../SpotifyService';
 import VinylCard from './VinylCard';
 
