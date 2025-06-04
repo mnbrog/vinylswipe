@@ -10,8 +10,6 @@ export default function ThreeDRecordPlayer({
   onGenreSelect = () => {},
   className = '',
 }) {
-
-
   const [playing, setPlaying] = useState(false);
   const [lifted, setLifted] = useState(false);
   const [flipped, setFlipped] = useState(false);
@@ -21,9 +19,7 @@ export default function ThreeDRecordPlayer({
   const handleFlip = () => setFlipped((f) => !f);
 
   return (
-    <div className={className}>
-
-
+    <div className={`${className} w-full h-[80vh]`}>
       <Canvas shadows camera={{ position: [0, 5, 8], fov: 50 }}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 5]} intensity={0.8} castShadow />
