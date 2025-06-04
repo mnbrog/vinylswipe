@@ -22,6 +22,7 @@ function Vinyl({ album, playing, lifted, onGenreSelect }) {
 
   return (
     <animated.group ref={group} position={position} rotation={rotation} castShadow>
+
       <mesh>
         <planeGeometry args={[2, 2]} />
         <meshBasicMaterial map={labelTexture} side={THREE.DoubleSide} />
@@ -37,6 +38,26 @@ function Vinyl({ album, playing, lifted, onGenreSelect }) {
             <meshBasicMaterial map={labelTexture} />
           </mesh>
         </group>
+
+      )}
+      {showBack && (
+        <Html rotation={[Math.PI / 2, 0, 0]} position={[0, 0.1, 0]} transform>
+          <div className="bg-black bg-opacity-80 text-white p-2 rounded w-40 text-xs text-center">
+            <p className="font-bold mb-1">{album.artist}</p>
+            <p className="mb-2">{album.bio}</p>
+            <div className="flex flex-wrap gap-1 justify-center">
+              {album.genre.map((g) => (
+                <button
+                  key={g}
+                  onClick={() => onGenreSelect(g)}
+                  className="bg-blue-700 px-2 py-0.5 rounded"
+                >
+                  {g}
+                </button>
+              ))}
+            </div>
+          </div>
+        </Html>
       )}
     </animated.group>
   );

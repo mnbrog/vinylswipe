@@ -21,6 +21,16 @@ export default function VinylPlayer({ song, onGenreSelect, onAddToCrate }) {
           onAddToCrate={() => onAddToCrate(song)}
         />
       </div>
+
+      <div className="w-full md:w-1/3 max-w-sm">
+        <FlippableAlbum
+          song={song}
+          flipped={infoOpen}
+          onToggle={() => setInfoOpen((o) => !o)}
+          onAddToCrate={onAddToCrate}
+          onGenreClick={onGenreSelect}
+        />
+      </div>
       <AlbumInfoPopup
         song={song}
         open={infoOpen}
