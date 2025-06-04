@@ -8,6 +8,8 @@ export default defineConfig({
     })
   ],
   root: 'src',
+  // Load environment variables from the project root
+  envDir: '..',
   build: {
     outDir: '../dist',
     emptyOutDir: true,

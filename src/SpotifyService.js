@@ -14,8 +14,32 @@ export async function getRecommendations(token, seedTrackId) {
   return await res.json();
 }
 
+export async function getRecommendationsByGenre(token, genre) {
+  const res = await fetch(
+    `${API_BASE}/recommendations?seed_genres=${encodeURIComponent(genre)}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return await res.json();
+}
+
 export async function getAudioFeatures(token, trackId) {
   const res = await fetch(`${API_BASE}/audio-features/${trackId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return await res.json();
+}
+
+export async function getArtist(token, artistId) {
+  const res = await fetch(`${API_BASE}/artists/${artistId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return await res.json();
+}
+
+export async function getUserPlaylists(token) {
+  const res = await fetch(`${API_BASE}/me/playlists`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return await res.json();
