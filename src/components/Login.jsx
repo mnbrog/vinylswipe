@@ -7,6 +7,7 @@ const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID || import.meta.env.REACT
 const redirectUri =
   import.meta.env.VITE_REDIRECT_URI || import.meta.env.REACT_APP_REDIRECT_URI;
 
+
 const scope = 'playlist-modify-public playlist-modify-private';
 
 const Login = () => {
