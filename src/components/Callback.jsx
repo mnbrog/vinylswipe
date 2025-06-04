@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext.jsx';
+
 
 const Callback = () => {
   const { saveAuth } = useContext(AuthContext);

@@ -1,7 +1,11 @@
 import React from 'react';
 
-const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const redirectUri = process.env.REACT_APP_REDIRECT_URI;
+// Vite exposes environment variables via `import.meta.env`.
+// Fall back to the old REACT_APP_ names for compatibility with
+// existing `.env` files used by the Netlify functions.
+const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID || import.meta.env.REACT_APP_SPOTIFY_CLIENT_ID;
+const redirectUri = import.meta.env.VITE_REDIRECT_URI || import.meta.env.REACT_APP_REDIRECT_URI;
+
 const scope = 'playlist-modify-public playlist-modify-private';
 
 const Login = () => {
