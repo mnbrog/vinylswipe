@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ThreeDRecordPlayer from './ThreeDRecordPlayer.jsx';
 import FlippableAlbum from './FlippableAlbum.jsx';
+import AlbumInfoPopup from './AlbumInfoPopup.jsx';
 
 export default function VinylPlayer({ song, onGenreSelect, onAddToCrate }) {
   const [infoOpen, setInfoOpen] = useState(false);
@@ -30,6 +31,12 @@ export default function VinylPlayer({ song, onGenreSelect, onAddToCrate }) {
           onGenreClick={onGenreSelect}
         />
       </div>
+      <AlbumInfoPopup
+        song={song}
+        open={infoOpen}
+        onClose={() => setInfoOpen(false)}
+        onGenreClick={onGenreSelect}
+      />
     </div>
   );
 }
