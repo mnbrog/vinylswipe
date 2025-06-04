@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { CrateContext } from '../contexts/CrateContext';
-import { AuthContext } from '../contexts/AuthContext';
+import { CrateContext } from '../contexts/CrateContext.jsx';
+import { AuthContext } from '../contexts/AuthContext.jsx';
 import { addTracksToPlaylist } from '../SpotifyService';
 
 const Crate = () => {
