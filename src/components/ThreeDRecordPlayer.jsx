@@ -8,15 +8,14 @@ export default function ThreeDRecordPlayer({
   album,
   onAddToCrate = () => {},
   onGenreSelect = () => {},
+  onInfoToggle = () => {},
   className = '',
 }) {
   const [playing, setPlaying] = useState(false);
   const [lifted, setLifted] = useState(false);
-  const [flipped, setFlipped] = useState(false);
 
   const togglePlay = () => setPlaying((p) => !p);
   const handleView = () => setLifted((v) => !v);
-  const handleFlip = () => setFlipped((f) => !f);
 
   return (
     <div className={`${className} w-screen h-[80vh]`}>
@@ -27,14 +26,13 @@ export default function ThreeDRecordPlayer({
           album={album}
           playing={playing}
           lifted={lifted}
-          showBack={flipped}
-          onFlip={handleFlip}
           onGenreSelect={onGenreSelect}
         />
         <ControlOverlay
           playing={playing}
           onPlayPause={togglePlay}
           onView={handleView}
+          onInfo={onInfoToggle}
           onAdd={() => onAddToCrate(album)}
         />
         <OrbitControls enablePan={false} />
