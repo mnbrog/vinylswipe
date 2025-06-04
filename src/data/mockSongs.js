@@ -1,3 +1,8 @@
+import scarletImg from '../assets/Scarlet.jfif';
+import panicImg from '../assets/wsp.jpg';
+import truckinImg from '../assets/truckin.jpg';
+import chillyImg from '../assets/chillywaterr.jfif';
+
 export const mockSongs = [
   {
     id: 1,
@@ -5,7 +10,7 @@ export const mockSongs = [
     artist: 'Grateful Dead',
     genre: ['psychedelic', 'jam', 'rock'],
     bio: 'Grateful Dead blended folk, blues, and psychedelia into genre-defining jams.',
-    image: '..src/truckin.jpg',
+    image: scarletImg,
   },
   {
     id: 2,
@@ -13,7 +18,7 @@ export const mockSongs = [
     artist: 'Widespread Panic',
     genre: ['southern rock', 'jam', 'alt'],
     bio: 'Southern rockers with deep improvisational roots and high-energy live shows.',
-    image: '../wsp.jpg',
+    image: panicImg,
   },
   {
     id: 3,
@@ -21,7 +26,7 @@ export const mockSongs = [
     artist: 'Grateful Dead',
     genre: ['classic rock', 'jam'],
     bio: 'Grateful Dead blended folk, blues, and psychedelia into genre-defining jams.',
-    image: '../truckin.jpg',
+    image: truckinImg,
   },
   {
     id: 4,
@@ -29,6 +34,7 @@ export const mockSongs = [
     artist: 'Widespread Panic',
     genre: ['jam', 'southern rock'],
     bio: 'Southern rockers with deep improvisational roots and high-energy live shows.',
-    image: '../wsp.jpg',
+    image: chillyImg,
   },
 ];
+
