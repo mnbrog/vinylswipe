@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const CrateContext = createContext();
 
@@ -23,6 +23,4 @@ export const CrateProvider = ({ children }) => {
     </CrateContext.Provider>
   );
 };
-
-export const useCrate = () => useContext(CrateContext);
 
