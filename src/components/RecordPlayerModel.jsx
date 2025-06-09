@@ -9,7 +9,7 @@ function Vinyl({ album, playing, lifted, onGenreSelect }) {
   const labelTexture = useTexture(album.coverUrl);
 
   const { position, rotation } = useSpring({
-    position: lifted ? [0, 0, 0] : [0, 1.5, -1],
+    position: lifted ? [0, 0.205, 0] : [0, 1.5, -1],
     rotation: lifted ? [-Math.PI / 2, 0, 0] : [0, 0, 0],
     config: { mass: 1, tension: 170, friction: 26 },
   });
@@ -47,7 +47,7 @@ function Vinyl({ album, playing, lifted, onGenreSelect }) {
 export default function RecordPlayerModel({ album, playing, lifted, onGenreSelect }) {
   const knobRef = useRef();
   const [knob, setKnob] = useState(0);
-  const woodTexture = useTexture('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1024&q=80');
+  // blue base block for the player
   const dragging = useRef(false);
 
   useFrame(() => {
@@ -73,7 +73,7 @@ export default function RecordPlayerModel({ album, playing, lifted, onGenreSelec
     <group>
       <mesh position={[0, -1.5, 0]} receiveShadow>
         <boxGeometry args={[4, 0.3, 4]} />
-        <meshStandardMaterial map={woodTexture} />
+        <meshStandardMaterial color="blue" />
       </mesh>
       <mesh receiveShadow castShadow>
         <boxGeometry args={[3, 0.3, 2]} />
