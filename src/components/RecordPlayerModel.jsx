@@ -47,7 +47,7 @@ function Vinyl({ album, playing, lifted, onGenreSelect }) {
 export default function RecordPlayerModel({ album, playing, lifted, onGenreSelect }) {
   const knobRef = useRef();
   const [knob, setKnob] = useState(0);
-  // blue base block for the player
+  // base block for the player
   const dragging = useRef(false);
 
   useFrame(() => {
@@ -73,7 +73,7 @@ export default function RecordPlayerModel({ album, playing, lifted, onGenreSelec
     <group>
       <mesh position={[0, -1.5, 0]} receiveShadow>
         <boxGeometry args={[4, 0.3, 4]} />
-        <meshStandardMaterial color="blue" />
+        <meshStandardMaterial color="#7b5237" />
       </mesh>
       <mesh receiveShadow castShadow>
         <boxGeometry args={[3, 0.3, 2]} />

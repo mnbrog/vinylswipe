@@ -22,24 +22,24 @@ export default function RecordStoreEnvironment() {
   const records = mockSongs.slice(0, 4);
   return (
     <group>
-      <Environment preset="warehouse" />
+      <Environment preset="dawn" />
       {/* Floor */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.2, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial color="#777" />
+        <meshStandardMaterial color="#554433" />
       </mesh>
       {/* Walls */}
       <mesh position={[0, 2, -10]} receiveShadow>
         <boxGeometry args={[20, 8, 0.1]} />
-        <meshStandardMaterial color="#999" />
+        <meshStandardMaterial color="#777" />
       </mesh>
       <mesh position={[-10, 2, 0]} rotation={[0, Math.PI / 2, 0]} receiveShadow>
         <boxGeometry args={[20, 8, 0.1]} />
-        <meshStandardMaterial color="#999" />
+        <meshStandardMaterial color="#777" />
       </mesh>
       <mesh position={[10, 2, 0]} rotation={[0, -Math.PI / 2, 0]} receiveShadow>
         <boxGeometry args={[20, 8, 0.1]} />
-        <meshStandardMaterial color="#999" />
+        <meshStandardMaterial color="#777" />
       </mesh>
       {/* Table */}
       <mesh position={[0, -1.9, 0]} receiveShadow castShadow>

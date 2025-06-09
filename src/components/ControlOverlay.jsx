@@ -6,7 +6,8 @@ export default function ControlOverlay({
   onPlayPause,
   onView,
   onInfo,
-  onAdd,
+  onAddCrate,
+  onAddShelf,
 }) {
   return (
     <Html position={[0, 2.5, 0]} center>
@@ -20,8 +21,11 @@ export default function ControlOverlay({
         <button onClick={onInfo} className="bg-gray-700 text-white px-2 py-1 rounded">
           Album Info
         </button>
-        <button onClick={onAdd} className="bg-purple-600 text-white px-2 py-1 rounded">
-          Add
+        <button onClick={onAddCrate} className="bg-blue-600 text-white px-2 py-1 rounded">
+          Add to Crate
+        </button>
+        <button onClick={onAddShelf} className="bg-purple-600 text-white px-2 py-1 rounded">
+          Add to Shelf
         </button>
       </div>
     </Html>
