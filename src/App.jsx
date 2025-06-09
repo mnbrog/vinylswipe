@@ -1,67 +1,52 @@
-import { useState } from 'react';
-import VinylPlayer from './components/VinylPlayer.jsx';
-import GenreFilter from './components/GenreFilter.jsx';
-import Crate from './components/Crate.jsx';
-import PlaylistModal from './components/PlaylistModal.jsx';
-import { mockSongs } from './data/mockSongs.js';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext.jsx';
+import { CrateProvider } from './contexts/CrateContext.jsx';
+import { ShelfProvider } from './contexts/ShelfContext.jsx';
+import Login from './components/Login.jsx';
+import Callback from './components/Callback.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import SwipeView from './components/SwipeView.jsx';
+import Shelf from './components/Shelf.jsx';
+import CrateView from './components/CrateView.jsx';
 
-function App() {
-  const [currentSong, setCurrentSong] = useState(mockSongs[0]);
-  const [selectedGenre, setSelectedGenre] = useState(null);
-  const [crate, setCrate] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-
-  const addToCrate = (song) => {
-    setCrate((prev) => (prev.find((s) => s.id === song.id) ? prev : [...prev, song]));
-  };
-
-  const removeFromCrate = (id) => {
-    setCrate((prev) => prev.filter((s) => s.id !== id));
-  };
-
-  const clearCrate = () => setCrate([]);
-
-  const handleConfirm = (name) => {
-    const count = crate.length;
-    clearCrate();
-    setShowModal(false);
-    alert(`Added ${count} songs to "${name}" playlist!`);
-  };
-
+export default function App() {
   return (
-    <div className="min-h-screen w-screen p-6 bg-black text-white flex flex-col items-center gap-8">
-      <h1 className="text-2xl font-bold">Vinyl Player</h1>
-
-      {!selectedGenre && (
-        <VinylPlayer
-          song={currentSong}
-          onGenreSelect={(g) => setSelectedGenre(g)}
-          onAddToCrate={addToCrate}
-        />
-      )}
-
-      {selectedGenre && (
-        <GenreFilter
-          genre={selectedGenre}
-          songs={mockSongs}
-          onSelectSong={(s) => {
-            setCurrentSong(s);
-            setSelectedGenre(null);
-          }}
-          onClose={() => setSelectedGenre(null)}
-        />
-      )}
-
-      <Crate crate={crate} onRemove={removeFromCrate} onProceed={() => setShowModal(true)} />
-
-      {showModal && (
-        <PlaylistModal
-          onConfirm={handleConfirm}
-          onClose={() => setShowModal(false)}
-        />
-      )}
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <CrateProvider>
+          <ShelfProvider>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/callback" element={<Callback />} />
+              <Route
+                path="/swipe"
+                element={
+                  <ProtectedRoute>
+                    <SwipeView />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/crate"
+                element={
+                  <ProtectedRoute>
+                    <CrateView />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/shelf"
+                element={
+                  <ProtectedRoute>
+                    <Shelf />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </ShelfProvider>
+        </CrateProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
-
-export default App;

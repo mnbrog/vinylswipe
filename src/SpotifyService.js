@@ -55,3 +55,15 @@ export async function addTracksToPlaylist(token, playlistId, uris) {
     body: JSON.stringify({ uris }),
   });
 }
+
+export async function createPlaylist(token, userId, name) {
+  const res = await fetch(`${API_BASE}/users/${userId}/playlists`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, public: false }),
+  });
+  return await res.json();
+}
