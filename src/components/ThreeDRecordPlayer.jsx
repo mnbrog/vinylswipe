@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import RecordPlayerModel from './RecordPlayerModel.jsx';
@@ -13,8 +13,20 @@ export default function ThreeDRecordPlayer({
 }) {
   const [playing, setPlaying] = useState(false);
   const [lifted, setLifted] = useState(false);
+  const timerRef = useRef(null);
 
-  const togglePlay = () => setPlaying((p) => !p);
+  useEffect(() => {
+    return () => timerRef.current && clearTimeout(timerRef.current);
+  }, []);
+
+  const togglePlay = () => {
+    if (!playing) {
+      setLifted(true);
+      timerRef.current = setTimeout(() => setPlaying(true), 600);
+    } else {
+      setPlaying(false);
+    }
+  };
   const handleView = () => setLifted((v) => !v);
 
   return (
