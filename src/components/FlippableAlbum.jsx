@@ -5,6 +5,7 @@ export default function FlippableAlbum({
   flipped: flippedProp,
   onToggle,
   onAddToCrate = () => {},
+  onAddToShelf = () => {},
   onGenreClick = () => {},
 }) {
   const [internalFlipped, setInternalFlipped] = useState(false);
@@ -19,6 +20,11 @@ export default function FlippableAlbum({
   const handleAdd = (e) => {
     e.stopPropagation();
     onAddToCrate(song);
+  };
+
+  const handleAddShelf = (e) => {
+    e.stopPropagation();
+    onAddToShelf(song);
   };
 
   const handleToggle = () => {
@@ -58,9 +64,14 @@ export default function FlippableAlbum({
               ))}
             </div>
           </div>
-          <button onClick={handleAdd} className="bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 rounded mt-2">
-            Add to Crate
-          </button>
+          <div className="flex gap-2 mt-2">
+            <button onClick={handleAdd} className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded">
+              Add to Crate
+            </button>
+            <button onClick={handleAddShelf} className="bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 rounded">
+              Add to Shelf
+            </button>
+          </div>
         </div>
       </div>
     </div>
