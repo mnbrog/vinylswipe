@@ -20,6 +20,7 @@ export default function ThreeDRecordPlayer({
   const [lifted, setLifted] = useState(false);
   const [currentAlbum, setCurrentAlbum] = useState(album);
   const [flying, setFlying] = useState(null);
+  const [hiddenIdx, setHiddenIdx] = useState(null);
   const timerRef = useRef(null);
 
   const playing = playingProp !== undefined ? playingProp : internalPlaying;
@@ -44,14 +45,23 @@ export default function ThreeDRecordPlayer({
     }
   };
   const handleView = () => setLifted((v) => !v);
-  const handleAlbumSelect = (a, pos) => {
+  const handleAlbumSelect = (a, pos, idx) => {
     setFlying({ album: a, from: pos });
+    setHiddenIdx(idx);
   };
 
   const handleFlyEnd = () => {
     if (flying) {
-      setCurrentAlbum(flying.album);
+      const { title, artist, bio, genre, image } = flying.album;
+      setCurrentAlbum({
+        title,
+        artist,
+        bio,
+        genre,
+        coverUrl: image,
+      });
       setFlying(null);
+      setHiddenIdx(null);
       setLifted(true);
       timerRef.current = setTimeout(() => setPlaying(true), 600);
       onPlayAudio();
@@ -64,7 +74,7 @@ export default function ThreeDRecordPlayer({
         <ambientLight intensity={0.3} color="#ffdda8" />
         <pointLight position={[2, 4, 2]} intensity={0.6} color="#ffcc88" castShadow />
         <directionalLight position={[-5, 8, 5]} intensity={0.4} color="#ffae66" castShadow />
-        <RecordStoreEnvironment onSelectAlbum={handleAlbumSelect} />
+        <RecordStoreEnvironment onSelectAlbum={handleAlbumSelect} hiddenIndex={hiddenIdx} />
         {flying && (
           <FlyingAlbum
             album={flying.album}
@@ -73,7 +83,7 @@ export default function ThreeDRecordPlayer({
             onEnd={handleFlyEnd}
           />
         )}
-        <group position={[0, 0, -8.5]}>
+        <group position={[0, 0.1, -8.5]}>
           <RecordPlayerModel
             album={currentAlbum}
             playing={playing}
