@@ -5,7 +5,7 @@ import WallShelf from './WallShelf.jsx';
 
 
 export default function RecordStoreEnvironment({ onSelectAlbum }) {
-  const records = mockSongs.slice(0, 4);
+  const records = mockSongs;
   return (
     <group>
       <Environment preset="dawn" />
@@ -28,7 +28,7 @@ export default function RecordStoreEnvironment({ onSelectAlbum }) {
         <meshStandardMaterial color="#777" />
       </mesh>
       {/* Shelf supporting the record player */}
-      <mesh position={[0, -1.65, -9.6]} receiveShadow castShadow>
+      <mesh position={[0, -1.65, -8.5]} receiveShadow castShadow>
         <boxGeometry args={[6, 0.2, 2.5]} />
         <meshStandardMaterial color="#7b5237" />
       </mesh>
