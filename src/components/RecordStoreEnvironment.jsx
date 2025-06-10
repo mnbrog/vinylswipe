@@ -28,7 +28,7 @@ export default function RecordStoreEnvironment({ onSelectAlbum, hiddenIndex }) {
         <meshStandardMaterial color="#777" />
       </mesh>
       {/* Shelf supporting the record player */}
-      <mesh position={[0, -1.65, -8.5]} receiveShadow castShadow>
+      <mesh position={[0, -1.95, -8.2]} receiveShadow castShadow>
         <boxGeometry args={[6, 0.2, 2.5]} />
         <meshStandardMaterial color="#7b5237" />
       </mesh>
