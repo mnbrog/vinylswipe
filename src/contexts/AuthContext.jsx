@@ -15,6 +15,33 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!refreshToken) return;
+
+    const base = import.meta.env.VITE_FUNCTIONS_BASE || '';
+    const refresh = () => {
+      fetch(`${base}/.netlify/functions/refresh`, {
+        method: 'POST',
+        body: JSON.stringify({ refresh_token: refreshToken }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.access_token) {
+            localStorage.setItem(
+              'spotify_auth',
+              JSON.stringify({ access_token: data.access_token, refresh_token: refreshToken })
+            );
+            setToken(data.access_token);
+          }
+        })
+        .catch((err) => console.error('Failed to refresh token', err));
+    };
+
+    // Refresh token periodically before it expires (approximately every 55 mins)
+    const interval = setInterval(refresh, 55 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, [refreshToken]);
+
   const saveAuth = ({ access_token, refresh_token }) => {
     localStorage.setItem('spotify_auth', JSON.stringify({ access_token, refresh_token }));
     setToken(access_token);
