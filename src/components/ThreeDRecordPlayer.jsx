@@ -52,7 +52,14 @@ export default function ThreeDRecordPlayer({
 
   const handleFlyEnd = () => {
     if (flying) {
-      setCurrentAlbum(flying.album);
+      const { title, artist, bio, genre, image } = flying.album;
+      setCurrentAlbum({
+        title,
+        artist,
+        bio,
+        genre,
+        coverUrl: image,
+      });
       setFlying(null);
       setHiddenIdx(null);
       setLifted(true);
