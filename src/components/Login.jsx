@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Vite exposes environment variables via `import.meta.env`.
 // Fall back to the old REACT_APP_ names for compatibility with
@@ -21,10 +22,19 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-black text-white">
-      <button onClick={handleLogin} className="bg-green-500 px-6 py-3 rounded-xl text-xl font-bold">
+    <div className="flex flex-col items-center justify-center gap-4 h-screen bg-black text-white">
+      <button
+        onClick={handleLogin}
+        className="bg-green-500 px-6 py-3 rounded-xl text-xl font-bold"
+      >
         Login with Spotify
       </button>
+      <Link
+        to="/demo"
+        className="bg-blue-600 px-6 py-3 rounded-xl text-xl font-bold"
+      >
+        Demo
+      </Link>
     </div>
   );
 };
