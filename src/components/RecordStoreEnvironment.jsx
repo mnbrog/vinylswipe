@@ -4,7 +4,7 @@ import { mockSongs } from '../data/mockSongs.js';
 import WallShelf from './WallShelf.jsx';
 
 
-export default function RecordStoreEnvironment({ onSelectAlbum }) {
+export default function RecordStoreEnvironment({ onSelectAlbum, hiddenIndex }) {
   const records = mockSongs;
   return (
     <group>
@@ -33,7 +33,7 @@ export default function RecordStoreEnvironment({ onSelectAlbum }) {
         <meshStandardMaterial color="#7b5237" />
       </mesh>
       {/* Wall shelf of albums */}
-      <WallShelf albums={records} onSelect={onSelectAlbum} />
+      <WallShelf albums={records} onSelect={onSelectAlbum} hiddenIndex={hiddenIndex} />
     </group>
   );
 }
