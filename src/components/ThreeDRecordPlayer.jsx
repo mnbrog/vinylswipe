@@ -4,6 +4,7 @@ import { OrbitControls } from '@react-three/drei';
 import RecordPlayerModel from './RecordPlayerModel.jsx';
 import RecordStoreEnvironment from './RecordStoreEnvironment.jsx';
 import ControlOverlay from './ControlOverlay.jsx';
+import FlyingAlbum from './FlyingAlbum.jsx';
 
 export default function ThreeDRecordPlayer({
   album,
@@ -17,6 +18,8 @@ export default function ThreeDRecordPlayer({
 }) {
   const [internalPlaying, setInternalPlaying] = useState(false);
   const [lifted, setLifted] = useState(false);
+  const [currentAlbum, setCurrentAlbum] = useState(album);
+  const [flying, setFlying] = useState(null);
   const timerRef = useRef(null);
 
   const playing = playingProp !== undefined ? playingProp : internalPlaying;
@@ -25,6 +28,10 @@ export default function ThreeDRecordPlayer({
   useEffect(() => {
     return () => timerRef.current && clearTimeout(timerRef.current);
   }, []);
+
+  useEffect(() => {
+    setCurrentAlbum(album);
+  }, [album]);
 
   const togglePlay = () => {
     if (!playing) {
@@ -37,6 +44,19 @@ export default function ThreeDRecordPlayer({
     }
   };
   const handleView = () => setLifted((v) => !v);
+  const handleAlbumSelect = (a, pos) => {
+    setFlying({ album: a, from: pos });
+  };
+
+  const handleFlyEnd = () => {
+    if (flying) {
+      setCurrentAlbum(flying.album);
+      setFlying(null);
+      setLifted(true);
+      timerRef.current = setTimeout(() => setPlaying(true), 600);
+      onPlayAudio();
+    }
+  };
 
   return (
     <div className={`${className} w-screen h-[80vh]`}>
@@ -44,20 +64,30 @@ export default function ThreeDRecordPlayer({
         <ambientLight intensity={0.3} color="#ffdda8" />
         <pointLight position={[2, 4, 2]} intensity={0.6} color="#ffcc88" castShadow />
         <directionalLight position={[-5, 8, 5]} intensity={0.4} color="#ffae66" castShadow />
-        <RecordStoreEnvironment />
-        <RecordPlayerModel
-          album={album}
-          playing={playing}
-          lifted={lifted}
-          onGenreSelect={onGenreSelect}
-        />
+        <RecordStoreEnvironment onSelectAlbum={handleAlbumSelect} />
+        {flying && (
+          <FlyingAlbum
+            album={flying.album}
+            from={flying.from}
+            to={[0, 1.5, -10.6]}
+            onEnd={handleFlyEnd}
+          />
+        )}
+        <group position={[0, 0, -9.6]}>
+          <RecordPlayerModel
+            album={currentAlbum}
+            playing={playing}
+            lifted={lifted}
+            onGenreSelect={onGenreSelect}
+          />
+        </group>
         <ControlOverlay
           playing={playing}
           onPlayPause={togglePlay}
           onView={handleView}
           onInfo={onInfoToggle}
-          onAddCrate={() => onAddToCrate(album)}
-          onAddShelf={() => onAddToShelf(album)}
+          onAddCrate={() => onAddToCrate(currentAlbum)}
+          onAddShelf={() => onAddToShelf(currentAlbum)}
         />
         <OrbitControls enablePan={false} />
       </Canvas>
