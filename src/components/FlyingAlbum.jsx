@@ -6,7 +6,10 @@ export default function FlyingAlbum({ album, from, to, onEnd }) {
   const texture = useTexture(album.image);
   const { pos } = useSpring({
     from: { pos: from },
-    to: { pos: to },
+    to: async (next) => {
+      await next({ pos: [from[0], from[1], from[2] + 0.5] });
+      await next({ pos: to });
+    },
     config: { mass: 1, tension: 120, friction: 20 },
     onRest: onEnd,
   });

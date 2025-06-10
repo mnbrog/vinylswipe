@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTexture, Html } from '@react-three/drei';
 
-function Album({ album, position, onClick }) {
+function Album({ album, position, onClick, hidden }) {
+  if (hidden) return null;
   const texture = useTexture(album.image);
   return (
     <group position={position}>
@@ -18,7 +19,7 @@ function Album({ album, position, onClick }) {
   );
 }
 
-export default function WallShelf({ albums = [], onSelect }) {
+export default function WallShelf({ albums = [], onSelect, hiddenIndex }) {
   const boardWidth = 18;
   const boardHeight = 3.5;
   const rows = 2;
@@ -48,7 +49,8 @@ export default function WallShelf({ albums = [], onSelect }) {
             key={`${album.id}-${idx}`}
             album={album}
             position={[x, y, 0.06]}
-            onClick={() => onSelect && onSelect(album, [x, y, -9.54])}
+            onClick={() => onSelect && onSelect(album, [x, y, -9.54], idx)}
+            hidden={idx === hiddenIndex}
           />
         );
       })}
