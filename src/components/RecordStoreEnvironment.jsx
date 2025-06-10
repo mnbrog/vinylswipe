@@ -1,24 +1,10 @@
 import React from 'react';
-import { useTexture, Environment } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import { mockSongs } from '../data/mockSongs.js';
+import WallShelf from './WallShelf.jsx';
 
-function VinylRecord({ image, position }) {
-  const texture = useTexture(image);
-  return (
-    <group position={position} rotation={[-Math.PI / 2, 0, 0]}>
-      <mesh receiveShadow castShadow>
-        <cylinderGeometry args={[0.6, 0.6, 0.02, 32]} />
-        <meshStandardMaterial color="black" />
-      </mesh>
-      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0.011, 0]}>
-        <circleGeometry args={[0.3, 32]} />
-        <meshBasicMaterial map={texture} />
-      </mesh>
-    </group>
-  );
-}
 
-export default function RecordStoreEnvironment() {
+export default function RecordStoreEnvironment({ onSelectAlbum }) {
   const records = mockSongs.slice(0, 4);
   return (
     <group>
@@ -41,24 +27,13 @@ export default function RecordStoreEnvironment() {
         <boxGeometry args={[20, 8, 0.1]} />
         <meshStandardMaterial color="#777" />
       </mesh>
-      {/* Table */}
-      <mesh position={[0, -1.9, 0]} receiveShadow castShadow>
-        <boxGeometry args={[6, 0.3, 4]} />
-        <meshStandardMaterial color="#654321" />
+      {/* Shelf supporting the record player */}
+      <mesh position={[0, -1.65, -9.6]} receiveShadow castShadow>
+        <boxGeometry args={[6, 0.2, 2.5]} />
+        <meshStandardMaterial color="#7b5237" />
       </mesh>
-      {/* Simple Shelves */}
-      <mesh position={[-3, 0, -3]} receiveShadow>
-        <boxGeometry args={[0.4, 2, 6]} />
-        <meshStandardMaterial color="#444" />
-      </mesh>
-      <mesh position={[3, 0, -3]} receiveShadow>
-        <boxGeometry args={[0.4, 2, 6]} />
-        <meshStandardMaterial color="#444" />
-      </mesh>
-      {/* Records */}
-      {records.map((song, idx) => (
-        <VinylRecord key={song.id} image={song.image} position={[-1.5 + idx, -1.85, 1]} />
-      ))}
+      {/* Wall shelf of albums */}
+      <WallShelf albums={records} onSelect={onSelectAlbum} />
     </group>
   );
 }

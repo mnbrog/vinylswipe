@@ -47,6 +47,10 @@ function Vinyl({ album, playing, lifted, onGenreSelect }) {
 export default function RecordPlayerModel({ album, playing, lifted, onGenreSelect }) {
   const knobRef = useRef();
   const [knob, setKnob] = useState(0);
+  const { rotation: toneRotation } = useSpring({
+    rotation: playing && lifted ? [0, 0, -0.5] : [0, 0, -0.3],
+    config: { mass: 1, tension: 120, friction: 14 },
+  });
   // base block for the player
   const dragging = useRef(false);
 
@@ -83,10 +87,14 @@ export default function RecordPlayerModel({ album, playing, lifted, onGenreSelec
         <cylinderGeometry args={[1.6, 1.6, 0.1, 64]} />
         <meshStandardMaterial color="#888" metalness={1} roughness={0.4} />
       </mesh>
-      <mesh position={[-0.8, 0.05, 0.8]} rotation={[0, 0, -0.3]} castShadow>
+      <animated.mesh
+        position={[-0.8, 0.05, 0.8]}
+        rotation={toneRotation}
+        castShadow
+      >
         <cylinderGeometry args={[0.02, 0.02, 1.2, 16]} />
         <meshStandardMaterial color="#b0b0b0" metalness={1} roughness={0.3} />
-      </mesh>
+      </animated.mesh>
       <mesh
         ref={knobRef}
         position={[1, 0.2, 0.8]}
