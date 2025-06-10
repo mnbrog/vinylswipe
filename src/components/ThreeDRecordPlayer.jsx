@@ -69,11 +69,11 @@ export default function ThreeDRecordPlayer({
           <FlyingAlbum
             album={flying.album}
             from={flying.from}
-            to={[0, 1.5, -10.6]}
+            to={[0, 1.5, -9.5]}
             onEnd={handleFlyEnd}
           />
         )}
-        <group position={[0, 0, -9.6]}>
+        <group position={[0, 0, -8.5]}>
           <RecordPlayerModel
             album={currentAlbum}
             playing={playing}
