@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import SwipeView from './components/SwipeView.jsx';
 import Shelf from './components/Shelf.jsx';
 import CrateView from './components/CrateView.jsx';
+import DemoApp from './DemoApp.jsx';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <ShelfProvider>
             <Routes>
               <Route path="/" element={<Login />} />
+              <Route path="/demo" element={<DemoApp />} />
               <Route path="/callback" element={<Callback />} />
               <Route
                 path="/swipe"
