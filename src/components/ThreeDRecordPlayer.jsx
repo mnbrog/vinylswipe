@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import RecordPlayerModel from './RecordPlayerModel.jsx';
 import RecordStoreEnvironment from './RecordStoreEnvironment.jsx';
 import ControlOverlay from './ControlOverlay.jsx';
@@ -53,13 +53,7 @@ export default function ThreeDRecordPlayer({
   const handleFlyEnd = () => {
     if (flying) {
       const { title, artist, bio, genre, image } = flying.album;
-      setCurrentAlbum({
-        title,
-        artist,
-        bio,
-        genre,
-        coverUrl: image,
-      });
+      setCurrentAlbum({ title, artist, bio, genre, coverUrl: image });
       setFlying(null);
       setHiddenIdx(null);
       setLifted(true);
@@ -70,11 +64,24 @@ export default function ThreeDRecordPlayer({
 
   return (
     <div className={`${className} w-screen h-[80vh]`}>
-      <Canvas shadows camera={{ position: [0, 5, 8], fov: 50 }}>
+      <Canvas shadows>
+        {/* Replaces default camera: flipped 180° on X */}
+        <PerspectiveCamera 
+          makeDefault 
+          position={[0, .4, 6]} 
+          rotation={[0, 0, 0]} 
+          fov={50} 
+        />
+
         <ambientLight intensity={0.3} color="#ffdda8" />
         <pointLight position={[2, 4, 2]} intensity={0.6} color="#ffcc88" castShadow />
         <directionalLight position={[-5, 8, 5]} intensity={0.4} color="#ffae66" castShadow />
-        <RecordStoreEnvironment onSelectAlbum={handleAlbumSelect} hiddenIndex={hiddenIdx} />
+        
+        {/* ADJUSTED: RecordStoreEnvironment positioned to align tan shelf with record player's gray bottom */}
+        <group position={[0, 1.0, -3]}>
+          <RecordStoreEnvironment onSelectAlbum={handleAlbumSelect} hiddenIndex={hiddenIdx} />
+        </group>
+        
         {flying && (
           <FlyingAlbum
             album={flying.album}
@@ -83,6 +90,7 @@ export default function ThreeDRecordPlayer({
             onEnd={handleFlyEnd}
           />
         )}
+        
         <group position={[0, -0.2, -8.2]}>
           <RecordPlayerModel
             album={currentAlbum}
@@ -91,6 +99,7 @@ export default function ThreeDRecordPlayer({
             onGenreSelect={onGenreSelect}
           />
         </group>
+        
         <ControlOverlay
           playing={playing}
           onPlayPause={togglePlay}
@@ -99,7 +108,13 @@ export default function ThreeDRecordPlayer({
           onAddCrate={() => onAddToCrate(currentAlbum)}
           onAddShelf={() => onAddToShelf(currentAlbum)}
         />
-        <OrbitControls enablePan={false} />
+
+        <OrbitControls 
+          enablePan={false} 
+          makeDefault 
+          minPolarAngle={0} 
+          maxPolarAngle={Math.PI * 2} 
+        />
       </Canvas>
     </div>
   );

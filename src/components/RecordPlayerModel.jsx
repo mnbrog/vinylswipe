@@ -72,11 +72,11 @@ export default function RecordPlayerModel({ album, playing, lifted, onGenreSelec
       setKnob((k) => Math.min(Math.PI / 2, Math.max(-Math.PI / 2, k + e.movementX * 0.01)));
     }
   };
-
+//box under the record player 
   return (
     <group>
-      <mesh position={[0, -1.5, 0]} receiveShadow>
-        <boxGeometry args={[4, 0.3, 4]} />
+      <mesh position={[0, -.57, 0]} receiveShadow>
+        <boxGeometry args={[4, .81, 4]} />
         <meshStandardMaterial color="#7b5237" />
       </mesh>
       <mesh receiveShadow castShadow>
